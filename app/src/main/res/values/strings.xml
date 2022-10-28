@@ -94,6 +94,11 @@
         "when a user tries to pick up one of cards.\n\n"
     </string>
     <string name="action_settings">Settings</string>
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="presholder">-</string>
+    <string name="heart">♥</string>
+    <string name="schedule_today">Расписание на сегодня</string>
+    <string name="schedule_tomorrow">Расписание на завтра</string>
+    <string name="edn_to_lesson">До конца урока</string>
+    <string name="end_to_break">До конца перемены</string>
+    <string name="current_lesson_format">- %s -</string>
 </resources>

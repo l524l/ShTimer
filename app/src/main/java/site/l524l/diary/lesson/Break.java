@@ -1,8 +1,9 @@
 package site.l524l.diary.lesson;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class Break {
+public class Break implements Serializable {
 
     private String startTime;
     private String endTime;

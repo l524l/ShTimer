@@ -1,6 +1,5 @@
 package site.l524l.diary;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -19,33 +18,24 @@ import java.util.Locale;
 import site.l524l.diary.lesson.Day;
 import site.l524l.diary.lesson.Lesson;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link BlankFragment#newInstance} factory method to
- * create an instance of this fragment.
- *
- */
-public class BlankFragment extends Fragment {
+public class DayFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String DAY_OF_WEAK = "day_of_weak";
-
-    // TODO: Rename and change types of parameters
     private Day day;
 
 
-    public static BlankFragment newInstance(Day param1) {
-        BlankFragment fragment = new BlankFragment();
+    public static DayFragment newInstance(Day param1) {
+        DayFragment fragment = new DayFragment();
         Bundle args = new Bundle();
         args.putSerializable(DAY_OF_WEAK, param1);
         fragment.setArguments(args);
         return fragment;
     }
 
-    public BlankFragment() {
+    public DayFragment() {
         // Required empty public constructor
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

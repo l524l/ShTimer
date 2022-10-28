@@ -1,9 +1,10 @@
 package site.l524l.diary.lesson;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Weak {
+public class Weak implements Serializable {
 
     private List<Day> dayList;
 

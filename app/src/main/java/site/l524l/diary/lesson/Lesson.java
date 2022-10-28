@@ -1,8 +1,9 @@
 package site.l524l.diary.lesson;
 
+import java.io.Serializable;
 import java.time.LocalTime;
 
-public class Lesson {
+public class Lesson implements Serializable {
 
     private String name;
     private String startTime;

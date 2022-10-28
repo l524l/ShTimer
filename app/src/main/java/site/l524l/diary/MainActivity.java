@@ -32,11 +32,11 @@ public class MainActivity extends AppCompatActivity {
     boolean isMain = true;
     
     private Weak weak;
-    private Gson gson = new Gson();
+    private final Gson gson = new Gson();
     private MyAsyncTask catTask;
     
     
-    public MainActivity() throws UnsupportedEncodingException {
+    public MainActivity() {
         weak = gson.fromJson(MAIN_WEAK, Weak.class);
     }
 
@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
         catTask.execute();
 
         if (isMain) {
-            Switch s = findViewById(R.id.switch2);
+            @SuppressLint("UseSwitchCompatOrMaterialCode") Switch s = findViewById(R.id.switch2);
             s.setChecked(false);
         }
     }
@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPause();
     }
 
+    @SuppressLint("StaticFieldLeak")
     private class MyAsyncTask extends AsyncTask<String, Integer, Integer> {
         @Override
         protected Integer doInBackground(String... parameter) {
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
             for (int id :
                     ids) {
                 TextView textView = findViewById(id);
-                textView.setText("-");
+                textView.setText(getResources().getString(R.string.presholder));
             }
 
             List<Lesson> lessons = null;
@@ -111,11 +112,11 @@ public class MainActivity extends AppCompatActivity {
             for (int i = 0; i < weak.getDayList().size(); i++) {
                 if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
                     if (weak.getDayList().get(i).getDayOfWeak().equals(dateTime.plusDays(1).getDayOfWeek())) lessons = weak.getDayList().get(i).getLessons();
-                    textView2.setText("Расписание на завтра");
+                    textView2.setText(getResources().getString(R.string.schedule_tomorrow));
                 }
                 if (weak.getDayList().get(i).getDayOfWeak().equals(dateTime.getDayOfWeek())) {
                     lessons = weak.getDayList().get(i).getLessons();
-                    textView2.setText("Расписание на сегодня");
+                    textView2.setText(getResources().getString(R.string.schedule_today));
                 }
             }
 
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
                 if (dateTime.toLocalTime().isAfter(lessons.get(i).getStartTime()) &&
                         dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime())) {
                     timer.setText(lessons.get(i).getEndTime().minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                    title.setText("До конца урока");
+                    title.setText(getResources().getString(R.string.edn_to_lesson));
 
                     currentLesson = i;
                 }
@@ -135,8 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 if(dateTime.toLocalTime().isAfter(lessons.get(i).getEndTime()) &&
                         dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()))){
                     timer.setText(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()).minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                    title.setText("До конца перемены");
-
+                    title.setText(getResources().getString(R.string.end_to_break));
                     currentLesson = i+1;
                 }
             }
@@ -147,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
                 textView.setTextSize(16);
                 textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 if (i == currentLesson) {
-                    textView.setText(String.format("- %s -", lessons.get(i).getName()));
+                    textView.setText(String.format(getResources().getString(R.string.current_lesson_format), lessons.get(i).getName()));
                     textView.setTextSize(18);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 }
