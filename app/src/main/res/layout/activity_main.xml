@@ -135,7 +135,7 @@
         android:checked="false"
         android:onClick="toggleClass"
         android:text="@string/heart"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
