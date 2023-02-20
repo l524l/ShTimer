@@ -12,4 +12,31 @@
     <string name="edn_to_lesson">До конца урока</string>
     <string name="end_to_break">До конца перемены</string>
     <string name="current_lesson_format">- %s -</string>
+    <string-array name="shcools">
+        <item>MБОУ "Куйбышевская СОШ"</item>
+    </string-array>
+    <string-array name="classes9">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+    </string-array>
+    <string-array name="classes11">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+    </string-array>
 </resources>
