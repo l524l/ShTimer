@@ -1,13 +1,12 @@
 package site.l524l.diary;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.gson.Gson;
 
@@ -44,23 +43,27 @@ public class DayListActivity extends AppCompatActivity {
             userService.getWeak("kuybyshevskaya",spinner.getSelectedItem().toString()).enqueue(new Callback<Weak>() {
                 @Override
                 public void onResponse(Call<Weak> call, Response<Weak> response) {
-                    response.body();
-                    File internalStorageDir = getFilesDir();
-                    File file = new File(internalStorageDir,"weak.json");
-                    Gson gson = new Gson();
-                    String s = gson.toJson(response.body());
-                    try {
-                        Files.write(file.toPath(),s.getBytes(StandardCharsets.UTF_8));
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if(response.isSuccessful()) {
+                        File internalStorageDir = getFilesDir();
+                        File file = new File(internalStorageDir,"weak.json");
+                        Gson gson = new Gson();
+                        String s = gson.toJson(response.body());
+                        try {
+                            Files.write(file.toPath(),s.getBytes(StandardCharsets.UTF_8));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        Toast.makeText(DayListActivity.this, "Ошибка сервера!", Toast.LENGTH_SHORT).show();
                     }
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
                 }
 
                 @Override
                 public void onFailure(Call<Weak> call, Throwable t) {
-
+                    Toast.makeText(DayListActivity.this, "Проверьте соединение с интернетом!", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
