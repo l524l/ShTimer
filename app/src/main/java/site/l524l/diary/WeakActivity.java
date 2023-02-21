@@ -1,6 +1,7 @@
 package site.l524l.diary;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -51,5 +52,11 @@ public class WeakActivity extends AppCompatActivity {
 
     public void goToMain(View view){
         onBackPressed();
+    }
+    public void goToSettings(View view){
+        Intent intent = new Intent(getApplicationContext(), DayListActivity.class);
+        intent.putExtra("isNoFirst", true);
+        startActivity(intent);
+        finish();
     }
 }
