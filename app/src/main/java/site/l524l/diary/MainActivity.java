@@ -51,14 +51,13 @@ public class MainActivity extends AppCompatActivity {
                 byte[] raw = Files.readAllBytes(file.toPath());
                 MAIN_WEAK = new String(raw,"utf-8");
                 weak = gson.fromJson(MAIN_WEAK, Weak.class);
+                Files.deleteIfExists(file.toPath());
             } catch (IOException e) {
                 e.printStackTrace();
             }
         } else {
             Intent intent = new Intent(getApplicationContext(), DayListActivity.class);
-            intent.putExtra("isNoFirst", false);
             startActivity(intent);
-            finish();
         }
     }
 

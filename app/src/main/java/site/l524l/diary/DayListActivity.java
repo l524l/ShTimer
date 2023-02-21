@@ -29,9 +29,6 @@ public class DayListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_list);
-        if(getIntent().getExtras().getBoolean("isNoFirst",false)) {
-            findViewById(R.id.textView).setVisibility(View.INVISIBLE);
-        }
         retrofit = new Retrofit.Builder()
                 .baseUrl("https://l524l.site:8443/shcool/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -57,7 +54,6 @@ public class DayListActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
                         finish();
                     } else {
