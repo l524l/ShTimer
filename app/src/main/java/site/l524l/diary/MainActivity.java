@@ -1,7 +1,9 @@
 package site.l524l.diary;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.Typeface;
 import android.os.AsyncTask;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.Group;
 
 import com.google.gson.Gson;
@@ -28,6 +31,8 @@ import site.l524l.diary.lesson.Weak;
 public class MainActivity extends AppCompatActivity {
 
     private String MAIN_WEAK;
+    private static final String APP_PREFERENCES = "mysettings";
+    private SharedPreferences mSettings;
     
     private Weak weak;
     private final Gson gson = new Gson();
@@ -45,6 +50,19 @@ public class MainActivity extends AppCompatActivity {
         File file = new File(internalStorageDir,"weak.json");
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+
+        switch (mSettings.getInt("theme",2)) {
+            case 0:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                break;
+            case 1:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                break;
+            case 2:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+                break;
+        }
 
         if(file.exists()){
             try {
