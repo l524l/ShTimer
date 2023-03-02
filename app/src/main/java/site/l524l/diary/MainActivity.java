@@ -126,48 +126,41 @@ public class MainActivity extends AppCompatActivity {
 
             title.setText("");
             timer.setText("");
-            textView2.setText("");
 
-            for (int id :
-                    ids) {
-                TextView textView = findViewById(id);
-                textView.setText(getResources().getString(R.string.presholder));
-            }
+            List<Lesson> lessons;
 
-            List<Lesson> lessons = null;
-
-            for (int i = 0; i < weak.getDayList().size(); i++) {
-                if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
-                    if (weak.getDayList().get(i).getDayOfWeak().equals(dateTime.plusDays(1).getDayOfWeek())) lessons = weak.getDayList().get(i).getLessons();
-                    textView2.setText(getResources().getString(R.string.schedule_tomorrow));
-                }
-                if (weak.getDayList().get(i).getDayOfWeak().equals(dateTime.getDayOfWeek())) {
-                    lessons = weak.getDayList().get(i).getLessons();
-                    textView2.setText(getResources().getString(R.string.schedule_today));
-                }
+            if (dateTime.getDayOfWeek().getValue() > 5) {
+                lessons = weak.getDayList().get(0).getLessons();
+                textView2.setText(getResources().getString(R.string.schedule_monday));
+            } else if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
+                lessons = weak.getDayList().get(dateTime.getDayOfWeek().getValue()).getLessons();
+                textView2.setText(getResources().getString(R.string.schedule_tomorrow));
+            } else {
+                lessons = weak.getDayList().get(dateTime.getDayOfWeek().getValue()-1).getLessons();
+                textView2.setText(getResources().getString(R.string.schedule_today));
             }
 
             if (lessons == null) return;
 
             int currentLesson = -1;
+            if (dateTime.getDayOfWeek().getValue() < 6) {
+                for (int i = 0; i < lessons.size(); i++) {
+                    if (dateTime.toLocalTime().isAfter(lessons.get(i).getStartTime()) &&
+                            dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime())) {
+                        timer.setText(lessons.get(i).getEndTime().minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                        title.setText(getResources().getString(R.string.edn_to_lesson));
 
-            for (int i = 0; i < lessons.size(); i++) {
-                if (dateTime.toLocalTime().isAfter(lessons.get(i).getStartTime()) &&
-                        dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime())) {
-                    timer.setText(lessons.get(i).getEndTime().minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                    title.setText(getResources().getString(R.string.edn_to_lesson));
+                        currentLesson = i;
+                    }
 
-                    currentLesson = i;
-                }
-
-                if(dateTime.toLocalTime().isAfter(lessons.get(i).getEndTime()) &&
-                        dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()))){
-                    timer.setText(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()).minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-                    title.setText(getResources().getString(R.string.end_to_break));
-                    currentLesson = i+1;
+                    if(dateTime.toLocalTime().isAfter(lessons.get(i).getEndTime()) &&
+                            dateTime.toLocalTime().isBefore(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()))){
+                        timer.setText(lessons.get(i).getEndTime().plusMinutes(lessons.get(i).getaBreak()).minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                        title.setText(getResources().getString(R.string.end_to_break));
+                        currentLesson = i+1;
+                    }
                 }
             }
-
             for (int i = 0; i < lessons.size(); i++) {
                 TextView textView = findViewById(ids[i]);
                 textView.setText(lessons.get(i).getName());

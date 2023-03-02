@@ -98,6 +98,7 @@
     <string name="heart">♥</string>
     <string name="schedule_today">Расписание на сегодня</string>
     <string name="schedule_tomorrow">Расписание на завтра</string>
+    <string name="schedule_monday">Расписание на понедельник</string>
     <string name="edn_to_lesson">До конца урока</string>
     <string name="end_to_break">До конца перемены</string>
     <string name="current_lesson_format">- %s -</string>
