@@ -58,6 +58,7 @@
         android:onClick="toggleClass"
         android:text="@string/heart"
         app:layout_constraintBottom_toTopOf="@+id/floatingActionButton5"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:visibility="invisible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
