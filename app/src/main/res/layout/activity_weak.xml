@@ -14,9 +14,11 @@
         android:layout_marginBottom="20dp"
         android:clickable="true"
         android:onClick="goToSettings"
+        android:tint="@color/teal_700"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@android:drawable/ic_menu_preferences" />
+        app:srcCompat="@drawable/ic_baseline_settings_24"
+        app:tint="#01574F" />
 
     <ScrollView
         android:id="@+id/scrollView2"
