@@ -1,5 +1,6 @@
 package site.l524l.diary;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -56,6 +57,7 @@ public class DayFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_blank, container, false);
     }
 
+    @SuppressLint("StringFormatMatches")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         TextView z = view.findViewById(R.id.textView11);
@@ -68,7 +70,7 @@ public class DayFragment extends Fragment {
         date.setText(String.format("%s %s", localDateTime.getDayOfMonth(),localDateTime.getMonth().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("ru"))));
         for (int i = 0; i < lessons.size(); i++) {
             TextView textView = view.findViewById(ids[i]);
-            textView.setText(lessons.get(i).getName());
+            textView.setText(String.format(getResources().getString(R.string.lesson_format),i+1, lessons.get(i).getName()));
         }
 
         super.onViewCreated(view, savedInstanceState);
