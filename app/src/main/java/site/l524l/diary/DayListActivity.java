@@ -123,4 +123,17 @@ public class DayListActivity extends AppCompatActivity {
         editor.putInt("theme", 2);
         editor.apply();
     }
+
+    private int count = 0;
+    public void personMode(View view){
+        count++;
+        if(count == 5) {
+            Toast.makeText(DayListActivity.this, "Включён личный функционал)", Toast.LENGTH_SHORT).show();
+            SharedPreferences.Editor editor = mSettings.edit();
+            editor.putBoolean("isPersonMode", true);
+            editor.apply();
+        } else if (count > 5) {
+            Toast.makeText(DayListActivity.this, "Уже не надо)", Toast.LENGTH_SHORT).show();
+        }
+    }
 }
