@@ -13,7 +13,7 @@
     <string name="edn_to_lesson">До конца урока</string>
     <string name="end_to_break">До конца перемены</string>
     <string name="lesson_format">%s. %s</string>
-    <string name="current_lesson_format">-%s. %s -</string>
+    <string name="current_lesson_format">- %s -</string>
     <string-array name="shcools">
         <item>MБОУ "Куйбышевская СОШ"</item>
     </string-array>

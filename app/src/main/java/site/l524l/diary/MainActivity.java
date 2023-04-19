@@ -190,11 +190,11 @@ public class MainActivity extends AppCompatActivity {
             }
             for (int i = 0; i < lessons.size(); i++) {
                 TextView textView = findViewById(ids[i]);
-                textView.setText(String.format(getResources().getString(R.string.lesson_format), i + 1, lessons.get(i).getName()));
+                textView.setText(lessons.get(i).getName());
                 textView.setTextSize(16);
                 textView.setTypeface(Typeface.defaultFromStyle(Typeface.NORMAL));
                 if (i == currentLesson) {
-                    textView.setText(String.format(getResources().getString(R.string.current_lesson_format), i + 1, lessons.get(i).getName()));
+                    textView.setText(String.format(getResources().getString(R.string.current_lesson_format), lessons.get(i).getName()));
                     textView.setTextSize(18);
                     textView.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
                 }
