@@ -2,19 +2,18 @@ package site.l524l.diary;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.Group;
-import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.Group;
+import androidx.fragment.app.Fragment;
+
 import java.time.LocalDateTime;
 import java.time.format.TextStyle;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -28,14 +27,6 @@ public class DayFragment extends Fragment {
     private Day day;
     private LocalDateTime localDateTime;
 
-
-    public static DayFragment newInstance(Day param1) {
-        DayFragment fragment = new DayFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(DAY_OF_WEAK, param1);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     public DayFragment() {
         // Required empty public constructor

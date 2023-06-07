@@ -91,7 +91,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/scheduleFor" />
 
     <TextView
         android:id="@+id/timer"
@@ -102,10 +102,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/t1" />
+        app:layout_constraintTop_toBottomOf="@+id/timerTitle" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/scheduleFor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -117,7 +117,7 @@
         app:layout_constraintTop_toBottomOf="@+id/timer" />
 
     <TextView
-        android:id="@+id/t1"
+        android:id="@+id/timerTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
@@ -128,7 +128,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
+        android:id="@+id/timeTableButton"
         android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
@@ -140,11 +140,11 @@
         app:srcCompat="@android:drawable/ic_menu_week" />
 
     <Switch
-        android:id="@+id/favorit_switch1"
+        android:id="@+id/favoritSwitch1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
-        android:onClick="goToggleWeak"
+        android:onClick="toggleWeak"
         android:text="@string/heart"
         android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"

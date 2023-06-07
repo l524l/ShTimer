@@ -2,7 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="site.l524l.diary">
+
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Diary"
         tools:targetApi="31">
+        <activity
+            android:name=".LockScreen"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateScreenActivity"
+            android:exported="false" />
         <activity
             android:name=".DayListActivity"
             android:exported="false" />
