@@ -24,8 +24,8 @@ import site.l524l.diary.storage.WeakFileStorage;
 
 public class SettingsActivity extends AppCompatActivity {
 
-    private Retrofit retrofit;
-    private SharedPreferences mSettings;
+    private final Retrofit retrofit;
+    private SharedPreferences appPreferences;
     private static final String APP_PREFERENCES = "mysettings";
 
 
@@ -46,9 +46,9 @@ public class SettingsActivity extends AppCompatActivity {
         } else {
             findViewById(R.id.themeSettingsGroop).setVisibility(View.GONE);
         }
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         RadioButton radioButton = null;
-        switch (mSettings.getInt("theme",2)) {
+        switch (appPreferences.getInt("theme",2)) {
             case 0:
                 radioButton = findViewById(R.id.lightThemeRadioButton);
                 break;
@@ -62,7 +62,7 @@ public class SettingsActivity extends AppCompatActivity {
         radioButton.setChecked(true);
 
         Spinner spinner = findViewById(R.id.classSpinner);
-        spinner.setSelection(mSettings.getInt("curentClass",0));
+        spinner.setSelection(appPreferences.getInt("curentClass",0));
     }
 
     public void save(View view) {
@@ -80,7 +80,7 @@ public class SettingsActivity extends AppCompatActivity {
                             e.printStackTrace();
                         }
 
-                        SharedPreferences.Editor editor = mSettings.edit();
+                        SharedPreferences.Editor editor = appPreferences.edit();
                         editor.putInt("curentClass", spinner.getSelectedItemPosition());
                         editor.apply();
 
@@ -103,19 +103,19 @@ public class SettingsActivity extends AppCompatActivity {
     }
     public void setDayTheme(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-        SharedPreferences.Editor editor = mSettings.edit();
+        SharedPreferences.Editor editor = appPreferences.edit();
         editor.putInt("theme", 0);
         editor.apply();
     }
     public void setNightTheme(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        SharedPreferences.Editor editor = mSettings.edit();
+        SharedPreferences.Editor editor = appPreferences.edit();
         editor.putInt("theme", 1);
         editor.apply();
     }
     public void setSystemTheme(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
-        SharedPreferences.Editor editor = mSettings.edit();
+        SharedPreferences.Editor editor = appPreferences.edit();
         editor.putInt("theme", 2);
         editor.apply();
     }
@@ -125,7 +125,7 @@ public class SettingsActivity extends AppCompatActivity {
         count++;
         if(count == 5) {
             Toast.makeText(SettingsActivity.this, "Включён личный функционал)", Toast.LENGTH_SHORT).show();
-            SharedPreferences.Editor editor = mSettings.edit();
+            SharedPreferences.Editor editor = appPreferences.edit();
             editor.putBoolean("isPersonMode", true);
             editor.apply();
         } else if (count > 5) {

@@ -15,22 +15,22 @@ import site.l524l.diary.R;
 public class UpdateScreenActivity extends AppCompatActivity {
 
     private static final String APP_PREFERENCES = "mysettings";
-    private SharedPreferences mSettings;
+    private SharedPreferences appPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_screen);
 
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         TextView t = findViewById(R.id.versionTextView);
 
-        t.setText(String.format("ShTimer %s",mSettings.getString("version_status","")));
+        t.setText(String.format("ShTimer %s", appPreferences.getString("version_status","")));
     }
 
     public void link(View view){
-        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mSettings.getString("update_link","")));
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(appPreferences.getString("update_link","")));
         startActivity(browserIntent);
     }
 }

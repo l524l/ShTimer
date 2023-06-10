@@ -36,11 +36,11 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String IS_FAVORITE_PREFERENCES = "isFavorite";
     private static final String APP_PREFERENCES = "mysettings";
-    private SharedPreferences mSettings;
+    private SharedPreferences appPreferences;
     
     private Weak weak;
-    private UpdateScreenTask catTask;
-    private Retrofit retrofit;
+    private UpdateScreenTask updateScreenTask;
+    private final Retrofit retrofit;
     private WeakFileStorage fileStorage;
 
     public MainActivity() {
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
                 .baseUrl("https://l524l.site:8443/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
-        catTask = new UpdateScreenTask();
+        updateScreenTask = new UpdateScreenTask();
     }
 
     @SuppressLint("SourceLockedOrientationActivity")
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         fileStorage = new WeakFileStorage(getFilesDir());
         setContentView(R.layout.activity_main);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
         checkUpdate();
         updateTheme();
@@ -82,8 +82,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        catTask = new UpdateScreenTask();
-        catTask.execute();
+        updateScreenTask = new UpdateScreenTask();
+        updateScreenTask.execute();
 
         checkUpdate();
         updateWeak();
@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
-        catTask.cancel(true);
+        updateScreenTask.cancel(true);
         super.onPause();
     }
 
@@ -139,8 +139,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void toggleWeak(View view){
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean(IS_FAVORITE_PREFERENCES, !mSettings.getBoolean(IS_FAVORITE_PREFERENCES,false));
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putBoolean(IS_FAVORITE_PREFERENCES, !appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
         editor.apply();
         updateWeak();
         TimerService timerService = new TimerService(weak);
@@ -151,15 +151,15 @@ public class MainActivity extends AppCompatActivity {
     public void updateFavoriteSwitch() {
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch s = findViewById(R.id.favoritSwitch1);
-        s.setChecked(mSettings.getBoolean(IS_FAVORITE_PREFERENCES,false));
-        if (mSettings.getBoolean("isPersonMode",false)) {
+        s.setChecked(appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
+        if (appPreferences.getBoolean("isPersonMode",false)) {
             s.setVisibility(View.VISIBLE);
         }
     }
 
     public void updateWeak() {
         try {
-            if (mSettings.getBoolean(IS_FAVORITE_PREFERENCES,false)) {
+            if (appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false)) {
                 weak = fileStorage.loadFavoriteWeak();
             }else {
                 weak = fileStorage.loadWeak();
@@ -170,7 +170,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void updateTheme(){
-        switch (mSettings.getInt("theme",2)) {
+        switch (appPreferences.getInt("theme",2)) {
             case 0:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 break;
@@ -208,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
                     Update update = response.body();
 
 
-                    SharedPreferences.Editor editor = mSettings.edit();
+                    SharedPreferences.Editor editor = appPreferences.edit();
                     editor.putBoolean("lock_status", update.LOCK_STATUS);
                     editor.putString("lock_title", update.LOCK_TITLE);
                     editor.putString("lock_message", update.LOCK_MESSAGE);
@@ -224,13 +224,13 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(MainActivity.this, "Не удалось проверить наличие обновлений", Toast.LENGTH_SHORT).show();
             }
         });
-        if (mSettings.getBoolean("lock_status",false)) {
+        if (appPreferences.getBoolean("lock_status",false)) {
             Intent intent = new Intent(getApplicationContext(), LockScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent);
             finish();
-        } else if (!mSettings.getString("version_status", getResources().getString(R.string.app_version)).equals(getResources().getString(R.string.app_version))) {
+        } else if (!appPreferences.getString("version_status", getResources().getString(R.string.app_version)).equals(getResources().getString(R.string.app_version))) {
             Intent intent = new Intent(getApplicationContext(), UpdateScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 

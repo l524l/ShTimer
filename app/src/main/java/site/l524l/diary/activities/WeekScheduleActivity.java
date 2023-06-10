@@ -25,7 +25,7 @@ public class WeekScheduleActivity extends AppCompatActivity {
     private static final String LOCAL_DATE_TIME = "local_date_time";
     private static final String APP_PREFERENCES = "mysettings";
     private static final String IS_FAVORITE_PREFERENCES = "isFavorite";
-    private SharedPreferences mSettings;
+    private SharedPreferences appPreferences;
     private WeakFileStorage fileStorage;
     private Weak weak;
 
@@ -41,17 +41,17 @@ public class WeekScheduleActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weak_schedule);
         fileStorage = new WeakFileStorage(getFilesDir());
-        mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
+        appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
 
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch s = findViewById(R.id.favoritSwitch2);
 
-        if (mSettings.getBoolean("isPersonMode",false)) {
+        if (appPreferences.getBoolean("isPersonMode",false)) {
             s.setVisibility(View.VISIBLE);
         }
 
-        if (mSettings.getBoolean(IS_FAVORITE_PREFERENCES,false)){
+        if (appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false)){
             weak = fileStorage.loadFavoriteWeak();
             s.setChecked(true);
         } else {
@@ -92,8 +92,8 @@ public class WeekScheduleActivity extends AppCompatActivity {
         finish();
     }
     public void toggleClass(View view){
-        SharedPreferences.Editor editor = mSettings.edit();
-        editor.putBoolean(IS_FAVORITE_PREFERENCES, !mSettings.getBoolean(IS_FAVORITE_PREFERENCES,false));
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putBoolean(IS_FAVORITE_PREFERENCES, !appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
         editor.apply();
 
         startActivity(getIntent());
