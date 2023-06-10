@@ -5,8 +5,8 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import site.l524l.diary.lesson.Lesson;
-import site.l524l.diary.lesson.Weak;
+import site.l524l.diary.entity.Lesson;
+import site.l524l.diary.entity.Weak;
 
 public class TimerService {
 

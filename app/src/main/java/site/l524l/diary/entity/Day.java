@@ -1,4 +1,4 @@
-package site.l524l.diary.lesson;
+package site.l524l.diary.entity;
 
 import java.io.Serializable;
 import java.time.DayOfWeek;

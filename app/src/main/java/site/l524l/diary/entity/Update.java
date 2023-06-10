@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.entity;
 
 public class Update {
     public boolean LOCK_STATUS;

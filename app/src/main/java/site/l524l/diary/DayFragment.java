@@ -17,8 +17,8 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
-import site.l524l.diary.lesson.Day;
-import site.l524l.diary.lesson.Lesson;
+import site.l524l.diary.entity.Day;
+import site.l524l.diary.entity.Lesson;
 
 public class DayFragment extends Fragment {
 
@@ -51,8 +51,8 @@ public class DayFragment extends Fragment {
     @SuppressLint("StringFormatMatches")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        TextView z = view.findViewById(R.id.textView11);
-        TextView date = view.findViewById(R.id.datetime);
+        TextView z = view.findViewById(R.id.dayOfWeakTextView);
+        TextView date = view.findViewById(R.id.dateTextView);
         Group labelsGroup = view.findViewById(R.id.leasons_labels);
         int[] ids = labelsGroup.getReferencedIds();
         List<Lesson> lessons = day.getLessons();

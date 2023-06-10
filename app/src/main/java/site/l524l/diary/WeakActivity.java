@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentContainerView;
 
 import java.time.LocalDateTime;
 
-import site.l524l.diary.lesson.Weak;
+import site.l524l.diary.entity.Weak;
 import site.l524l.diary.storage.WeakFileStorage;
 
 public class WeakActivity extends AppCompatActivity {
@@ -64,7 +64,7 @@ public class WeakActivity extends AppCompatActivity {
         localDateTime = localDateTime.minusDays(localDateTime.getDayOfWeek().getValue() - 1);
 
         for (int i = 0; i < 5; i++) {
-            LinearLayout layout = findViewById(R.id.daylist);
+            LinearLayout layout = findViewById(R.id.scheduleLinerLayout);
             FragmentContainerView container = new FragmentContainerView(this);
             container.setId(1001000+i);
             layout.addView(container);

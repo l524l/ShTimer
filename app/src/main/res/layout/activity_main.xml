@@ -14,26 +14,18 @@
         app:constraint_referenced_ids="l1,l2,l3,l4,l5,l6,l7" />
 
     <TextView
-        android:id="@+id/l3"
+        android:id="@+id/l1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="40dp"
+        android:clickable="false"
+        android:contextClickable="false"
+        android:enabled="true"
         android:text="@string/presholder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l2" />
-
-    <TextView
-        android:id="@+id/l6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/presholder"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l5" />
+        app:layout_constraintTop_toBottomOf="@+id/scheduleForTextView" />
 
     <TextView
         android:id="@+id/l2"
@@ -47,7 +39,7 @@
         app:layout_constraintTop_toBottomOf="@+id/l1" />
 
     <TextView
-        android:id="@+id/l7"
+        android:id="@+id/l3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -55,18 +47,7 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l6" />
-
-    <TextView
-        android:id="@+id/l5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:text="@string/presholder"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/l4" />
+        app:layout_constraintTop_toBottomOf="@+id/l2" />
 
     <TextView
         android:id="@+id/l4"
@@ -80,21 +61,40 @@
         app:layout_constraintTop_toBottomOf="@+id/l3" />
 
     <TextView
-        android:id="@+id/l1"
+        android:id="@+id/l5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:clickable="false"
-        android:contextClickable="false"
-        android:enabled="true"
+        android:layout_marginTop="30dp"
         android:text="@string/presholder"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scheduleFor" />
+        app:layout_constraintTop_toBottomOf="@+id/l4" />
 
     <TextView
-        android:id="@+id/timer"
+        android:id="@+id/l6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/presholder"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l5" />
+
+    <TextView
+        android:id="@+id/l7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/presholder"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/l6" />
+
+    <TextView
+        android:id="@+id/timerTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -102,10 +102,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.518"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timerTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/timerTitleTextView" />
 
     <TextView
-        android:id="@+id/scheduleFor"
+        android:id="@+id/scheduleForTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
@@ -114,10 +114,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timer" />
+        app:layout_constraintTop_toBottomOf="@+id/timerTextView" />
 
     <TextView
-        android:id="@+id/timerTitle"
+        android:id="@+id/timerTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"

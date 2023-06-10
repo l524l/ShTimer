@@ -2,35 +2,36 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/themeSettingTextView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".DayListActivity">
 
     <RadioGroup
-        android:id="@+id/radioGroup"
+        android:id="@+id/themeRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView14">
+        app:layout_constraintTop_toBottomOf="@+id/themeSettingsView">
 
         <RadioButton
-            android:id="@+id/light"
+            android:id="@+id/lightThemeRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setDayTheme"
             android:text="Светлая" />
 
         <RadioButton
-            android:id="@+id/night"
+            android:id="@+id/nightThemeRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="setNightTheme"
             android:text="Тёмная" />
 
         <RadioButton
-            android:id="@+id/system"
+            android:id="@+id/systemThemeRadioButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:checked="true"
@@ -39,7 +40,7 @@
     </RadioGroup>
 
     <TextView
-        android:id="@+id/textView14"
+        android:id="@+id/themeSettingsView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -47,12 +48,12 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner" />
+        app:layout_constraintTop_toBottomOf="@+id/classSpinner" />
 
     <Spinner
-        android:id="@+id/spinner2"
+        android:id="@+id/institutionSpinner"
         android:layout_width="275dp"
-        android:layout_height="34dp"
+        android:layout_height="48dp"
         android:layout_marginTop="24dp"
         android:clickable="false"
         android:entries="@array/shcools"
@@ -60,10 +61,10 @@
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/institutionTextView" />
 
     <TextView
-        android:id="@+id/textView12"
+        android:id="@+id/classTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
@@ -71,13 +72,14 @@
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/spinner2" />
+        app:layout_constraintTop_toBottomOf="@+id/institutionSpinner" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
+        android:minHeight="48dp"
         android:onClick="personMode"
         android:text="Добро пожаловать!"
         android:textSize="24sp"
@@ -87,7 +89,7 @@
         tools:visibility="visible" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/institutionTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
@@ -96,10 +98,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcomeTextView" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
@@ -110,21 +112,21 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <Spinner
-        android:id="@+id/spinner"
+        android:id="@+id/classSpinner"
         android:layout_width="100dp"
-        android:layout_height="34dp"
+        android:layout_height="48dp"
         android:layout_marginTop="20dp"
         android:entries="@array/classes11"
         android:textAlignment="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView12" />
+        app:layout_constraintTop_toBottomOf="@+id/classTextView" />
 
     <androidx.constraintlayout.widget.Group
-        android:id="@+id/radio_groop"
+        android:id="@+id/themeSettingsGroop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:constraint_referenced_ids="textView14,radioGroup"
+        app:constraint_referenced_ids="themeSettingsView,themeRadioGroup"
         tools:visibility="gone" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
