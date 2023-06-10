@@ -25,7 +25,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import site.l524l.diary.R;
-import site.l524l.diary.TimerService;
+import site.l524l.diary.timeservice.TimerService;
 import site.l524l.diary.entity.Lesson;
 import site.l524l.diary.entity.Update;
 import site.l524l.diary.entity.Weak;
