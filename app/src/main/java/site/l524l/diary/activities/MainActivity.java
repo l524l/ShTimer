@@ -97,15 +97,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class UpdateScreenTask extends AsyncTask<String, Integer, Integer> {
+    private class UpdateScreenTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected Integer doInBackground(String... parameter) {
+        protected Void doInBackground(Void... parameter) {
             while (!isCancelled()) {
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    return 0;
-                }
+                } catch (InterruptedException ignored) {}
                 publishProgress();
             }
             return null;
@@ -113,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
 
         @SuppressLint("StringFormatMatches")
         @Override
-        protected void onProgressUpdate(Integer... progress) {
+        protected void onProgressUpdate(Void... progress) {
             TimerService timerService = new TimerService(weak);
             TextView title = findViewById(R.id.timerTitleTextView);
             TextView timer = findViewById(R.id.timerTextView);
