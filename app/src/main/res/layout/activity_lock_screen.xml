@@ -7,26 +7,24 @@
     tools:context=".LockScreen">
 
     <TextView
-        android:id="@+id/lockTitle"
+        android:id="@+id/lockTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
-        android:text="Технические проблемы!"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/lockMessage"
+        android:id="@+id/lockMessageTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula et est id efficitur. Donec volutpat arcu ante, et consectetur leo aliquet eget. Cras in ligula mauris. AeneanLorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vehicula et est id efficitur. Donec volutpat arcu ante, et consectetur leo aliquet eget. Cras in ligula mauris. Aenean interdum nibh. interdum nibh."
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/lockTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/lockTitleTextView" />
 </androidx.constraintlayout.widget.ConstraintLayout>

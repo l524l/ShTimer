@@ -16,8 +16,8 @@ public class LockScreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lock_screen);
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        TextView v = findViewById(R.id.lockTitle);
-        TextView v1 = findViewById(R.id.lockMessage);
+        TextView v = findViewById(R.id.lockTitleTextView);
+        TextView v1 = findViewById(R.id.lockMessageTextView);
 
         v.setText(mSettings.getString("lock_title",""));
         v1.setText(mSettings.getString("lock_message",""));

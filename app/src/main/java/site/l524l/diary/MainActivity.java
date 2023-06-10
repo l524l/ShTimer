@@ -24,8 +24,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import site.l524l.diary.lesson.Lesson;
-import site.l524l.diary.lesson.Weak;
+import site.l524l.diary.entity.Lesson;
+import site.l524l.diary.entity.Update;
+import site.l524l.diary.entity.Weak;
 import site.l524l.diary.retrofit.ApiService;
 import site.l524l.diary.storage.WeakFileStorage;
 
@@ -112,9 +113,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onProgressUpdate(Integer... progress) {
             TimerService timerService = new TimerService(weak);
-            TextView title = findViewById(R.id.timerTitle);
-            TextView timer = findViewById(R.id.timer);
-            TextView textView2 = findViewById(R.id.scheduleFor);
+            TextView title = findViewById(R.id.timerTitleTextView);
+            TextView timer = findViewById(R.id.timerTextView);
+            TextView textView2 = findViewById(R.id.scheduleForTextView);
 
             title.setText("");
             timer.setText("");

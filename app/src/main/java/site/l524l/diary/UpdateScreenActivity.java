@@ -22,7 +22,7 @@ public class UpdateScreenActivity extends AppCompatActivity {
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
-        TextView t = findViewById(R.id.versionTitle);
+        TextView t = findViewById(R.id.versionTextView);
 
         t.setText(String.format("ShTimer %s",mSettings.getString("version_status","")));
     }

@@ -1,6 +1,8 @@
-package site.l524l.diary;
+package site.l524l.diary.entity;
 
-public class Update {
+import java.io.Serializable;
+
+public class Update implements Serializable {
     public boolean LOCK_STATUS;
     public String LOCK_TITLE;
     public String LOCK_MESSAGE;

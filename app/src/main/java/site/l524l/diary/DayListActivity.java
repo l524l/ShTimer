@@ -17,7 +17,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import site.l524l.diary.lesson.Weak;
+import site.l524l.diary.entity.Weak;
 import site.l524l.diary.retrofit.ApiService;
 import site.l524l.diary.storage.WeakFileStorage;
 
@@ -41,33 +41,33 @@ public class DayListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_day_list);
         if(getIntent().getExtras().getBoolean("isNoFirst",false)) {
-            findViewById(R.id.textView).setVisibility(View.GONE);
+            findViewById(R.id.welcomeTextView).setVisibility(View.GONE);
         } else {
-            findViewById(R.id.radio_groop).setVisibility(View.GONE);
+            findViewById(R.id.themeSettingsGroop).setVisibility(View.GONE);
         }
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
         RadioButton radioButton = null;
         switch (mSettings.getInt("theme",2)) {
             case 0:
-                radioButton = findViewById(R.id.light);
+                radioButton = findViewById(R.id.lightThemeRadioButton);
                 break;
             case 1:
-                radioButton = findViewById(R.id.night);
+                radioButton = findViewById(R.id.nightThemeRadioButton);
                 break;
             case 2:
-                radioButton = findViewById(R.id.system);
+                radioButton = findViewById(R.id.systemThemeRadioButton);
                 break;
         }
         radioButton.setChecked(true);
 
-        Spinner spinner = findViewById(R.id.spinner);
+        Spinner spinner = findViewById(R.id.classSpinner);
         spinner.setSelection(mSettings.getInt("curentClass",0));
     }
 
     public void save(View view) {
         ApiService userService = retrofit.create(ApiService.class);
         try {
-            Spinner spinner = findViewById(R.id.spinner);
+            Spinner spinner = findViewById(R.id.classSpinner);
             userService.getWeak("kuybyshevskaya",spinner.getSelectedItem().toString()).enqueue(new Callback<Weak>() {
                 @Override
                 public void onResponse(Call<Weak> call, Response<Weak> response) {
