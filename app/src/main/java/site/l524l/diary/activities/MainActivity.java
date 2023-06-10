@@ -13,6 +13,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.constraintlayout.widget.Group;
@@ -97,15 +98,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @SuppressLint("StaticFieldLeak")
-    private class UpdateScreenTask extends AsyncTask<String, Integer, Integer> {
+    private class UpdateScreenTask extends AsyncTask<Void, Void, Void> {
         @Override
-        protected Integer doInBackground(String... parameter) {
+        protected Void doInBackground(Void... parameter) {
             while (!isCancelled()) {
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException e) {
-                    return 0;
-                }
+                } catch (InterruptedException ignored) {}
                 publishProgress();
             }
             return null;
@@ -113,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
         @SuppressLint("StringFormatMatches")
         @Override
-        protected void onProgressUpdate(Integer... progress) {
+        protected void onProgressUpdate(Void... progress) {
             TimerService timerService = new TimerService(weak);
             TextView title = findViewById(R.id.timerTitleTextView);
             TextView timer = findViewById(R.id.timerTextView);
@@ -203,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         ApiService userService = retrofit.create(ApiService.class);
         userService.getUpdate().enqueue(new Callback<Update>() {
             @Override
-            public void onResponse(Call<Update> call, Response<Update> response) {
+            public void onResponse(@NonNull Call<Update> call, @NonNull Response<Update> response) {
                 if(response.isSuccessful()) {
                     Update update = response.body();
 
@@ -220,7 +219,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<Update> call, Throwable t) {
+            public void onFailure(@NonNull Call<Update> call, @NonNull Throwable t) {
                 Toast.makeText(MainActivity.this, "Не удалось проверить наличие обновлений", Toast.LENGTH_SHORT).show();
             }
         });
