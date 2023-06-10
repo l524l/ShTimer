@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -14,10 +14,12 @@ import androidx.fragment.app.FragmentContainerView;
 
 import java.time.LocalDateTime;
 
+import site.l524l.diary.R;
 import site.l524l.diary.entity.Weak;
+import site.l524l.diary.fragments.DayScheduleFragment;
 import site.l524l.diary.storage.WeakFileStorage;
 
-public class WeakActivity extends AppCompatActivity {
+public class WeekScheduleActivity extends AppCompatActivity {
 
     private static final String DAY_OF_WEAK = "day_of_weak";
     private static final String LOCAL_DATE_TIME = "local_date_time";
@@ -28,7 +30,7 @@ public class WeakActivity extends AppCompatActivity {
     private Weak weak;
 
 
-    public WeakActivity() {
+    public WeekScheduleActivity() {
 
     }
 
@@ -37,7 +39,7 @@ public class WeakActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weak);
+        setContentView(R.layout.activity_weak_schedule);
         fileStorage = new WeakFileStorage(getFilesDir());
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
@@ -74,7 +76,7 @@ public class WeakActivity extends AppCompatActivity {
             bundle.putSerializable(LOCAL_DATE_TIME, localDateTime.plusDays(i));
             if (savedInstanceState == null) {
                 getSupportFragmentManager().beginTransaction()
-                        .add(container.getId(), DayFragment.class, bundle)
+                        .add(container.getId(), DayScheduleFragment.class, bundle)
                         .commit();
             }
         }
@@ -84,7 +86,7 @@ public class WeakActivity extends AppCompatActivity {
         onBackPressed();
     }
     public void goToSettings(View view){
-        Intent intent = new Intent(getApplicationContext(), DayListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
         intent.putExtra("isNoFirst", true);
         startActivity(intent);
         finish();

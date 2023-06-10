@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,18 +17,19 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import site.l524l.diary.R;
 import site.l524l.diary.entity.Weak;
 import site.l524l.diary.retrofit.ApiService;
 import site.l524l.diary.storage.WeakFileStorage;
 
-public class DayListActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity {
 
     private Retrofit retrofit;
     private SharedPreferences mSettings;
     private static final String APP_PREFERENCES = "mysettings";
 
 
-    public DayListActivity() {
+    public SettingsActivity() {
         this.retrofit = new Retrofit.Builder()
                 .baseUrl("https://l524l.site:8443/")
                 .addConverterFactory(GsonConverterFactory.create())
@@ -39,7 +40,7 @@ public class DayListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_day_list);
+        setContentView(R.layout.activity_settings);
         if(getIntent().getExtras().getBoolean("isNoFirst",false)) {
             findViewById(R.id.welcomeTextView).setVisibility(View.GONE);
         } else {
@@ -93,7 +94,7 @@ public class DayListActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Weak> call, Throwable t) {
-                    Toast.makeText(DayListActivity.this, "Проверьте соединение с интернетом!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SettingsActivity.this, "Проверьте соединение с интернетом!", Toast.LENGTH_SHORT).show();
                 }
             });
         } catch (Exception e) {
@@ -123,12 +124,12 @@ public class DayListActivity extends AppCompatActivity {
     public void personMode(View view){
         count++;
         if(count == 5) {
-            Toast.makeText(DayListActivity.this, "Включён личный функционал)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SettingsActivity.this, "Включён личный функционал)", Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = mSettings.edit();
             editor.putBoolean("isPersonMode", true);
             editor.apply();
         } else if (count > 5) {
-            Toast.makeText(DayListActivity.this, "Уже не надо)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SettingsActivity.this, "Уже не надо)", Toast.LENGTH_SHORT).show();
         }
     }
 }

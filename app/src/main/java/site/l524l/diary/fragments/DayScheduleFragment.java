@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.fragments;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -17,10 +17,11 @@ import java.time.format.TextStyle;
 import java.util.List;
 import java.util.Locale;
 
+import site.l524l.diary.R;
 import site.l524l.diary.entity.Day;
 import site.l524l.diary.entity.Lesson;
 
-public class DayFragment extends Fragment {
+public class DayScheduleFragment extends Fragment {
 
     private static final String DAY_OF_WEAK = "day_of_weak";
     private static final String LOCAL_DATE_TIME = "local_date_time";
@@ -28,7 +29,7 @@ public class DayFragment extends Fragment {
     private LocalDateTime localDateTime;
 
 
-    public DayFragment() {
+    public DayScheduleFragment() {
         // Required empty public constructor
     }
 
@@ -45,7 +46,7 @@ public class DayFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_blank, container, false);
+        return inflater.inflate(R.layout.fragment_day_schedule, container, false);
     }
 
     @SuppressLint("StringFormatMatches")

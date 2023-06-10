@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import site.l524l.diary.R;
+
 public class UpdateScreenActivity extends AppCompatActivity {
 
     private static final String APP_PREFERENCES = "mysettings";
@@ -18,7 +20,7 @@ public class UpdateScreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.update_screen);
+        setContentView(R.layout.activity_update_screen);
 
         mSettings = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 

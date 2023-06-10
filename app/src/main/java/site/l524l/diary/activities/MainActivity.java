@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.activities;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,6 +24,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import site.l524l.diary.R;
+import site.l524l.diary.TimerService;
 import site.l524l.diary.entity.Lesson;
 import site.l524l.diary.entity.Update;
 import site.l524l.diary.entity.Weak;
@@ -65,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
             updateWeak();
             updateFavoriteSwitch();
         } else {
-            Intent intent = new Intent(getApplicationContext(), DayListActivity.class);
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             intent.putExtra("isNoFirst", false);
             startActivity(intent);
             finish();
@@ -132,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void goToTimetable(View view){
-        Intent intent = new Intent(getApplicationContext(), WeakActivity.class);
+        Intent intent = new Intent(getApplicationContext(), WeekScheduleActivity.class);
         startActivity(intent);
     }
 
@@ -223,7 +225,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (mSettings.getBoolean("lock_status",false)) {
-            Intent intent = new Intent(getApplicationContext(), LockScreen.class);
+            Intent intent = new Intent(getApplicationContext(), LockScreenActivity.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
             startActivity(intent);

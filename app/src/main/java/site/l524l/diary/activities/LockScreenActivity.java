@@ -1,4 +1,4 @@
-package site.l524l.diary;
+package site.l524l.diary.activities;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -7,7 +7,9 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class LockScreen extends AppCompatActivity {
+import site.l524l.diary.R;
+
+public class LockScreenActivity extends AppCompatActivity {
     private static final String APP_PREFERENCES = "mysettings";
     private SharedPreferences mSettings;
 
