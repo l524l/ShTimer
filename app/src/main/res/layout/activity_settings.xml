@@ -80,7 +80,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="150dp"
         android:minHeight="48dp"
-        android:onClick="personMode"
+        android:onClick="activatePersonMode"
         android:text="Добро пожаловать!"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

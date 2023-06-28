@@ -44,16 +44,41 @@ public class WeekScheduleActivity extends AppCompatActivity {
         appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
 
 
+        updateSwitch();
+        updateWeak();
+        updateSchedule(savedInstanceState);
+    }
+
+    public void goToMain(View view){
+        onBackPressed();
+    }
+    public void goToSettings(View view){
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        intent.putExtra("isFirstLaunch", false);
+        startActivity(intent);
+        finish();
+    }
+    public void toggleClass(View view){
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putBoolean(IS_FAVORITE_PREFERENCES, !appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
+        editor.apply();
+
+        startActivity(getIntent());
+        overridePendingTransition(0, 0);
+        finish();
+    }
+
+    private void updateSwitch(){
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch s = findViewById(R.id.favoritSwitch2);
 
         if (appPreferences.getBoolean("isPersonMode",false)) {
             s.setVisibility(View.VISIBLE);
         }
-
+    }
+    private void updateWeak(){
         if (appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false)){
             weak = fileStorage.loadFavoriteWeak();
-            s.setChecked(true);
         } else {
             try {
                 weak = fileStorage.loadWeak();
@@ -61,7 +86,8 @@ public class WeekScheduleActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
+    }
+    private void updateSchedule(Bundle savedInstanceState){
         LocalDateTime localDateTime = LocalDateTime.now();
         localDateTime = localDateTime.minusDays(localDateTime.getDayOfWeek().getValue() - 1);
 
@@ -80,24 +106,5 @@ public class WeekScheduleActivity extends AppCompatActivity {
                         .commit();
             }
         }
-    }
-
-    public void goToMain(View view){
-        onBackPressed();
-    }
-    public void goToSettings(View view){
-        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-        intent.putExtra("isNoFirst", true);
-        startActivity(intent);
-        finish();
-    }
-    public void toggleClass(View view){
-        SharedPreferences.Editor editor = appPreferences.edit();
-        editor.putBoolean(IS_FAVORITE_PREFERENCES, !appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
-        editor.apply();
-
-        startActivity(getIntent());
-        overridePendingTransition(0, 0);
-        finish();
     }
 }

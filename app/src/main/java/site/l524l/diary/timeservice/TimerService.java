@@ -34,22 +34,22 @@ public class TimerService {
     }
 
     public String getEndTimeTo(){
-        updateState();
+        updateData();
         return endTo;
     }
     public String getEndTime(){
-        updateState();
+        updateData();
         return endTime;
     }
     public int getCurrentLessonNumber(){
-        updateState();
+        updateData();
         return currentLesson;
     }
     public List<Lesson> getSchedule(){
         updateState();
         return currentState.getSchedule(weak);
     }
-    private void updateState(){
+    private void updateData(){
         LocalDateTime dateTime = LocalDateTime.now();
         List<Lesson> schedule = getSchedule();
 
@@ -70,6 +70,11 @@ public class TimerService {
                 }
             }
         }
+
+        updateState();
+    }
+    private void updateState(){
+        LocalDateTime dateTime = LocalDateTime.now();
         if (dateTime.getDayOfWeek().getValue() > 5) {
             currentState = stateForMonday;
         } else if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {

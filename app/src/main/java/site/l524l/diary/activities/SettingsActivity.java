@@ -27,6 +27,7 @@ public class SettingsActivity extends AppCompatActivity {
     private final Retrofit retrofit;
     private SharedPreferences appPreferences;
     private static final String APP_PREFERENCES = "mysettings";
+    private static final String IS_FIRST_LAUNCH_PREFERENCES = "isFirstLaunch";
 
 
     public SettingsActivity() {
@@ -41,65 +42,39 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
-        if(getIntent().getExtras().getBoolean("isNoFirst",false)) {
-            findViewById(R.id.welcomeTextView).setVisibility(View.GONE);
-        } else {
-            findViewById(R.id.themeSettingsGroop).setVisibility(View.GONE);
-        }
         appPreferences = getSharedPreferences(APP_PREFERENCES, Context.MODE_PRIVATE);
-        RadioButton radioButton = null;
-        switch (appPreferences.getInt("theme",2)) {
-            case 0:
-                radioButton = findViewById(R.id.lightThemeRadioButton);
-                break;
-            case 1:
-                radioButton = findViewById(R.id.nightThemeRadioButton);
-                break;
-            case 2:
-                radioButton = findViewById(R.id.systemThemeRadioButton);
-                break;
-        }
-        radioButton.setChecked(true);
 
-        Spinner spinner = findViewById(R.id.classSpinner);
-        spinner.setSelection(appPreferences.getInt("curentClass",0));
+        showWelcomeTextIfFirstLaunch();
+
+        updateThemeRadioButton();
+        updateSpinner();
     }
 
     public void save(View view) {
         ApiService userService = retrofit.create(ApiService.class);
-        try {
-            Spinner spinner = findViewById(R.id.classSpinner);
-            userService.getWeak("kuybyshevskaya",spinner.getSelectedItem().toString()).enqueue(new Callback<Weak>() {
-                @Override
-                public void onResponse(Call<Weak> call, Response<Weak> response) {
-                    if(response.isSuccessful()) {
-                        try {
-                            WeakFileStorage fileStorage = new WeakFileStorage(getFilesDir());
-                            fileStorage.uploadWeak(response.body());
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
-                        SharedPreferences.Editor editor = appPreferences.edit();
-                        editor.putInt("curentClass", spinner.getSelectedItemPosition());
-                        editor.apply();
-
-                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-
+        WeakFileStorage fileStorage = new WeakFileStorage(getFilesDir());
+        Spinner spinner = findViewById(R.id.classSpinner);
+        userService.getWeak("kuybyshevskaya",spinner.getSelectedItem().toString()).enqueue(new Callback<Weak>() {
+            @Override
+            public void onResponse(Call<Weak> call, Response<Weak> response) {
+                if(response.isSuccessful()) {
+                    try {
+                        fileStorage.uploadWeak(response.body());
+                        saveCurrentClassToPreferences(spinner.getSelectedItemPosition());
+                        updateFirstLaunchPreferences();
+                        goToMainActivity();
                         finish();
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
                 }
+            }
 
-                @Override
-                public void onFailure(Call<Weak> call, Throwable t) {
-                    Toast.makeText(SettingsActivity.this, "Проверьте соединение с интернетом!", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            @Override
+            public void onFailure(Call<Weak> call, Throwable t) {
+                Toast.makeText(SettingsActivity.this, "Проверьте соединение с интернетом!", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
     public void setDayTheme(View view) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -120,16 +95,62 @@ public class SettingsActivity extends AppCompatActivity {
         editor.apply();
     }
 
-    private int count = 0;
-    public void personMode(View view){
-        count++;
-        if(count == 5) {
+    private int tapCount = 0;
+    public void activatePersonMode(View view){
+        tapCount++;
+        if(tapCount == 5) {
             Toast.makeText(SettingsActivity.this, "Включён личный функционал)", Toast.LENGTH_SHORT).show();
             SharedPreferences.Editor editor = appPreferences.edit();
             editor.putBoolean("isPersonMode", true);
             editor.apply();
-        } else if (count > 5) {
+        } else if (tapCount > 5) {
             Toast.makeText(SettingsActivity.this, "Уже не надо)", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void goToMainActivity(){
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void saveCurrentClassToPreferences(int classNumber){
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putInt("curentClass", classNumber);
+        editor.apply();
+    }
+
+    private void updateThemeRadioButton(){
+        RadioButton radioButton = null;
+        switch (appPreferences.getInt("theme",2)) {
+            case 0:
+                radioButton = findViewById(R.id.lightThemeRadioButton);
+                break;
+            case 1:
+                radioButton = findViewById(R.id.nightThemeRadioButton);
+                break;
+            case 2:
+                radioButton = findViewById(R.id.systemThemeRadioButton);
+                break;
+        }
+        radioButton.setChecked(true);
+    }
+
+    private void updateSpinner(){
+        Spinner spinner = findViewById(R.id.classSpinner);
+        spinner.setSelection(appPreferences.getInt("curentClass",0));
+    }
+
+    private void showWelcomeTextIfFirstLaunch(){
+        if(getIntent().getExtras().getBoolean("isFirstLaunch",false)) {
+            findViewById(R.id.themeSettingsGroop).setVisibility(View.GONE);
+        } else {
+            findViewById(R.id.welcomeTextView).setVisibility(View.GONE);
+        }
+    }
+    private void updateFirstLaunchPreferences(){
+        SharedPreferences.Editor editor = appPreferences.edit();
+        editor.putBoolean(IS_FIRST_LAUNCH_PREFERENCES, false);
+        editor.apply();
     }
 }

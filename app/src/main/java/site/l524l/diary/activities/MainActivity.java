@@ -36,6 +36,7 @@ import site.l524l.diary.storage.WeakFileStorage;
 public class MainActivity extends AppCompatActivity {
 
     private static final String IS_FAVORITE_PREFERENCES = "isFavorite";
+    private static final String IS_FIRST_LAUNCH_PREFERENCES = "isFirstLaunch";
     private static final String APP_PREFERENCES = "mysettings";
     private SharedPreferences appPreferences;
     
@@ -64,14 +65,12 @@ public class MainActivity extends AppCompatActivity {
         checkUpdate();
         updateTheme();
 
-        if(fileStorage.isFileExist()){
+        if(isFirstLaunch()){
+            goToSettingsActivityWhenFirstLaunch();
+            finish();
+        } else {
             updateWeak();
             updateFavoriteSwitch();
-        } else {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            intent.putExtra("isNoFirst", false);
-            startActivity(intent);
-            finish();
         }
     }
 
@@ -116,15 +115,12 @@ public class MainActivity extends AppCompatActivity {
             TimerService timerService = new TimerService(weak);
             TextView title = findViewById(R.id.timerTitleTextView);
             TextView timer = findViewById(R.id.timerTextView);
-            TextView textView2 = findViewById(R.id.scheduleForTextView);
+            TextView scheduleForTextView = findViewById(R.id.scheduleForTextView);
 
             title.setText("");
             timer.setText("");
 
-            textView2.setText(timerService.getScheduleFor());
-
-            title.setText("");
-            timer.setText("");
+            scheduleForTextView.setText(timerService.getScheduleFor());
             timer.setText(timerService.getEndTime());
             title.setText(timerService.getEndTimeTo());
 
@@ -147,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
         updateDaySchedule(timerService.getSchedule(),timerService.getCurrentLessonNumber());
     }
 
-    public void updateFavoriteSwitch() {
+    private void updateFavoriteSwitch() {
         @SuppressLint("UseSwitchCompatOrMaterialCode")
         Switch s = findViewById(R.id.favoritSwitch1);
         s.setChecked(appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false));
@@ -156,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateWeak() {
+    private void updateWeak() {
         try {
             if (appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false)) {
                 weak = fileStorage.loadFavoriteWeak();
@@ -168,7 +164,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateTheme(){
+    private void updateTheme(){
         switch (appPreferences.getInt("theme",2)) {
             case 0:
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
@@ -182,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void updateDaySchedule(List<Lesson> lessons, int currentLesson){
+    private void updateDaySchedule(List<Lesson> lessons, int currentLesson){
         Group group = findViewById(R.id.labels_group);
         int[] ids = group.getReferencedIds();
         for (int i = 0; i < lessons.size(); i++) {
@@ -198,7 +194,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void checkUpdate(){
+    private void checkUpdate(){
         ApiService userService = retrofit.create(ApiService.class);
         userService.getUpdate().enqueue(new Callback<Update>() {
             @Override
@@ -224,17 +220,32 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         if (appPreferences.getBoolean("lock_status",false)) {
-            Intent intent = new Intent(getApplicationContext(), LockScreenActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            startActivity(intent);
+            goToLockActivity();
             finish();
         } else if (!appPreferences.getString("version_status", getResources().getString(R.string.app_version)).equals(getResources().getString(R.string.app_version))) {
-            Intent intent = new Intent(getApplicationContext(), UpdateScreenActivity.class);
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-
-            startActivity(intent);
+            goToUpdateActivity();
             finish();
         }
+    }
+    private void goToSettingsActivityWhenFirstLaunch(){
+        Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+        intent.putExtra("isFirstLaunch", true);
+        startActivity(intent);
+    }
+    private void goToUpdateActivity(){
+        Intent intent = new Intent(getApplicationContext(), UpdateScreenActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+    }
+    private void goToLockActivity(){
+        Intent intent = new Intent(getApplicationContext(), UpdateScreenActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        startActivity(intent);
+    }
+
+    private boolean isFirstLaunch(){
+        return appPreferences.getBoolean(IS_FIRST_LAUNCH_PREFERENCES,true);
     }
 }
