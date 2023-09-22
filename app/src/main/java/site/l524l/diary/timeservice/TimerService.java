@@ -1,5 +1,9 @@
 package site.l524l.diary.timeservice;
 
+import android.util.Log;
+
+import com.google.gson.Gson;
+
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -53,7 +57,9 @@ public class TimerService {
         LocalDateTime dateTime = LocalDateTime.now();
         List<Lesson> schedule = getSchedule();
 
-        if (dateTime.getDayOfWeek().getValue() < 6) {
+        if ((dateTime.getDayOfWeek().getValue() < 6) ||
+                (dateTime.getDayOfWeek().getValue() < 7 && weak.getDayList().size() == 6)
+        ) {
             for (int i = 0; i < schedule.size(); i++) {
                 if (dateTime.toLocalTime().isAfter(schedule.get(i).getStartTime()) &&
                         dateTime.toLocalTime().isBefore(schedule.get(i).getEndTime())) {
@@ -73,14 +79,26 @@ public class TimerService {
 
         updateState();
     }
-    private void updateState(){
+    private void updateState() {
         LocalDateTime dateTime = LocalDateTime.now();
-        if (dateTime.getDayOfWeek().getValue() > 5) {
-            currentState = stateForMonday;
-        } else if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
-            currentState = stateForTomorrow;
-        } else {
-            currentState = stateForToday;
+        int dayInWeak = weak.getDayList().size();
+
+        if (dayInWeak == 5) {
+            if (dateTime.getDayOfWeek().getValue() > 5 || dateTime.getDayOfWeek().getValue() == 5 && dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
+                currentState = stateForMonday;
+            } else if (dateTime.toLocalTime().isAfter(LocalTime.of(15, 0))) {
+                currentState = stateForTomorrow;
+            } else {
+                currentState = stateForToday;
+            }
+        }else if (dayInWeak == 6) {
+            if (dateTime.getDayOfWeek().getValue() > 6 || dateTime.getDayOfWeek().getValue() == 6 && dateTime.toLocalTime().isAfter(LocalTime.of(19, 35))) {
+                currentState = stateForMonday;
+            } else if (dateTime.toLocalTime().isAfter(LocalTime.of(19, 35))) {
+                currentState = stateForTomorrow;
+            } else {
+                currentState = stateForToday;
+            }
         }
     }
 }

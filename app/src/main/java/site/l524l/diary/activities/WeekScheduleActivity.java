@@ -78,6 +78,9 @@ public class WeekScheduleActivity extends AppCompatActivity {
     }
     private void updateWeak(){
         if (appPreferences.getBoolean(IS_FAVORITE_PREFERENCES,false)){
+            @SuppressLint("UseSwitchCompatOrMaterialCode")
+            Switch s = findViewById(R.id.favoritSwitch2);
+            s.setChecked(true);
             weak = fileStorage.loadFavoriteWeak();
         } else {
             try {
