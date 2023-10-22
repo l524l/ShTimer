@@ -1,9 +1,5 @@
 package site.l524l.diary.timeservice;
 
-import android.util.Log;
-
-import com.google.gson.Gson;
-
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -65,7 +61,11 @@ public class TimerService {
                         dateTime.toLocalTime().isBefore(schedule.get(i).getEndTime())) {
                     currentLesson = i;
                     endTime = schedule.get(i).getEndTime().minusSeconds(dateTime.toLocalTime().toSecondOfDay()).format(DateTimeFormatter.ofPattern("HH:mm:ss"));
-                    endTo = "До конца урока";
+                    if (weak.getDayList().size() == 6) {
+                        endTo = "До конца пары";
+                    } else {
+                        endTo = "До конца урока";
+                    }
                 }
 
                 if(dateTime.toLocalTime().isAfter(schedule.get(i).getEndTime()) &&
